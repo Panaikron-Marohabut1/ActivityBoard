@@ -4,13 +4,26 @@
   "description": "MFU Activity Board - Mae Fah Luang University Activity Management Platform",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "node server/index.js",
     "dev": "nodemon server/index.js",
     "dev:frontend": "npm run copy && live-server public --port=3000 --host=localhost --open=/index.html",
     "dev:backend": "nodemon server/index.js",
     "dev:old": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "copy": "node scripts/copy-files.js",
-    "build": "npm run copy",
+    "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    { "src": "/(.*)", "dest": "/public/$1" }
+  ],
     "clean": "node -e \"require('fs-extra').removeSync('public/src')\"",
     "server": "node server/index.js"
   },
