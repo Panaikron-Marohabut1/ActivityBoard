@@ -197,5 +197,3 @@ process.on('unhandledRejection', (err) => {
     // Close server & exit process
     process.exit(1);
 });
-
-app.listen(PORT)
