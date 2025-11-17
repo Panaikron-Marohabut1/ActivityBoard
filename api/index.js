@@ -41,9 +41,9 @@ app.use(cors({
         }
         
         // Allow configured frontend URL
-        if (origin === process.env.FRONTEND_URL) {
-            return callback(null, true);
-        }
+        if (origin === process.env.FRONTEND_URL) return callback(null, true);
+
+        if (origin && origin.includes('.onrender.com')) return callback(null, true);
         
         callback(new Error('Not allowed by CORS'));
     },
@@ -77,9 +77,6 @@ app.get('/health', (req, res) => {
     });
 });
 
-// Serve static frontend files (for ngrok single tunnel)
-app.use(express.static(path.join(__dirname, '../public')));
-
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/activities', activityRoutes);
@@ -89,18 +86,6 @@ app.use('/api/events', eventRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/notifications', notificationRoutes);
-
-// Serve index.html for any non-API routes (SPA support)
-app.get('*', (req, res) => {
-    // Don't serve index.html for API routes
-    if (req.path.startsWith('/api/')) {
-        return res.status(404).json({
-            success: false,
-            message: 'API route not found'
-        });
-    }
-    res.sendFile(path.join(__dirname, '../public', 'index.html'));
-});
 
 // 404 handler for API routes only
 app.use('/api/*', (req, res) => {
