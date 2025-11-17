@@ -1,6 +1,6 @@
 // API Configuration and Helper Functions
 // Use relative URL when serving from same origin (ngrok), otherwise localhost
-const API_BASE_URL = window.location.hostname === 'https://activityboard.onrender.com/';
+const API_BASE_URL = 'https://activityboard.onrender.com/';
 
 // Get auth token from localStorage
 function getAuthToken() {
