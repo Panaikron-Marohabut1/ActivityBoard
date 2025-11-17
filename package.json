@@ -4,7 +4,7 @@
   "description": "MFU Activity Board - Mae Fah Luang University Activity Management Platform",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node api/index.js",
     "dev": "nodemon server/index.js",
     "dev:frontend": "npm run copy && live-server public --port=3000 --host=localhost --open=/index.html",
     "dev:backend": "nodemon server/index.js",
