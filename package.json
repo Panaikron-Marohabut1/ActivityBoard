@@ -10,20 +10,7 @@
     "dev:backend": "nodemon server/index.js",
     "dev:old": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "copy": "node scripts/copy-files.js",
-    "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "public/**/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1.js" },
-    { "src": "/(.*)", "dest": "/public/$1" }
-  ],
+    "build": "echo 'Build skipped",
     "clean": "node -e \"require('fs-extra').removeSync('public/src')\"",
     "server": "node server/index.js"
   },
